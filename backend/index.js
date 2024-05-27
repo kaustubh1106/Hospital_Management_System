@@ -3,7 +3,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
 const messageRouter = require("./router/messageRouter.js")
-const dbConnection = require("./utils/dbConnections.js")
+const {dbConnection} = require("./utils/dbConnections.js")
 
 require("dotenv").config()
 const app = express()
