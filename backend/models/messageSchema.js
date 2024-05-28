@@ -24,7 +24,9 @@ const MessageSchema = new Schema({
         minLength :  [10,"please enter valid phone no"],
         maxLength : [10,"please enter valid phone no"]
     },
-
+    message : {
+        type:String,
+    }
 });
 
 const Message = mongoose.model("message",MessageSchema)

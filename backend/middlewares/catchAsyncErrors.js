@@ -7,3 +7,5 @@ const catchAsyncErrors = (theFunctions)=>{
        }
     }
 }
+
+module.exports={catchAsyncErrors}

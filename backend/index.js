@@ -4,11 +4,14 @@ const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
 const messageRouter = require("./router/messageRouter.js")
 const {dbConnection} = require("./utils/dbConnections.js")
+const {errorHandler,errorMiddleware} = require("./middlewares/errorMiddleware.js")
 
 require("dotenv").config()
 const app = express()
 
 dbConnection()
+
+
 
 app.use(cors(
     {
@@ -19,12 +22,17 @@ app.use(cors(
 app.use(cookieParser())
 app.use(express.json())   //used for json to string conversion
 app.use(express.urlencoded({ extended: true} ))
-
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: `/tmp/`
 }))
-
 app.use('/api/v1/message',messageRouter)
+// app.get("/why",(req,res)=>{
+//     res.json({message:"hiii"})
+// })
+app.use(errorMiddleware)
 
-console.log(`${process.env.PORT}`,"server Started")
+app.listen(process.env.PORT,()=>{
+
+    console.log(`${process.env.PORT}`,"server Started")
+})
