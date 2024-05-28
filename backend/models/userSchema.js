@@ -62,26 +62,30 @@ const userSchema = new Schema({
     }
 });
 
-userSchema.pre("save",async (next)=>{
-    if(!this.isModified("password")){
-        next()
+// Arrow functions do not bind their own this, but inherit it from the parent scope, which is not what you want in this case. 
+
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+        return next();
     }
-    this.password = await bcrypt.hash(this.password, 10)
-})
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+});
 
-userSchema.methods.comparePassword = async (enteredPassword)=>{
-    return await bcrypt.compare(enteredPassword,this.password)
+userSchema.methods.comparePassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
 }
 
-userSchema.methods.generateJsonWebToken = ()=>{
+userSchema.methods.generateJsonWebToken = function () {
     return jwt.sign(
-    {
-        id:this._id
-    },
-    process.env.JWT_SECRET_KEY,
-    {expiresIn:process.env.JWT_EXPIRES}
-    )
+        {
+            id: this._id
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: process.env.JWT_EXPIRES }
+    );
 }
+
 
 const User = mongoose.model("user",userSchema)
 
