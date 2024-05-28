@@ -3,6 +3,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
 const messageRouter = require("./router/messageRouter.js")
+const userRouter = require("./router/userRouter.js")
 const {dbConnection} = require("./utils/dbConnections.js")
 const {errorHandler,errorMiddleware} = require("./middlewares/errorMiddleware.js")
 
@@ -27,9 +28,8 @@ app.use(fileUpload({
     tempFileDir: `/tmp/`
 }))
 app.use('/api/v1/message',messageRouter)
-// app.get("/why",(req,res)=>{
-//     res.json({message:"hiii"})
-// })
+app.use('/api/v1/user',userRouter)
+
 app.use(errorMiddleware)
 
 app.listen(process.env.PORT,()=>{
