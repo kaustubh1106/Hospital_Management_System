@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const dbConnection = ()=>{
     const encodedPassword = encodeURIComponent(process.env.DB_PASSWORD);
-    mongoose.connect(`mongodb+srv://${process.env.DB_EMAIL}:${encodedPassword}@job.nrad5pb.mongodb.net/?retryWrites=true&w=majority&appName=Job`)
+    mongoose.connect(`${process.env.DB_URL}`)
         .then(console.log("Database connected"))
         .catch((error)=>{
             console.log(error)

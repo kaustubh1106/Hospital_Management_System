@@ -1,5 +1,6 @@
 const {ErrorHandler,errorMiddleware} = require ("../middlewares/errorMiddleware.js")
 const User = require("../models/userSchema.js")
+const {generateToken} = require("../utils/jwtToken.js")
 
 const patientRegister = async(req,res,next)=>{
     const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password,_role} = req.body
@@ -22,10 +23,7 @@ const patientRegister = async(req,res,next)=>{
         password: _password,
         role: _role,
         })
-        res.json({
-            status:200,
-            message: "saved"
-        }) 
+        generateToken(user,"Patient Registered succesfully",200,res)
 }
 
 const login = async(req,res,next)=>{
@@ -48,9 +46,29 @@ const login = async(req,res,next)=>{
     if(_role !== user.role){
         return next(new ErrorHandler("wrong role provided", 400))
     }
-    res.json({
-        status:200,
-        message: "User logged In successfully"
-    }) 
+    generateToken(user,"LOGIN succesfully",200,res)
+ 
 }
-module.exports = {patientRegister , login}
+const adminRegister = async(req,res,next)=>{
+    const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password} = req.body
+    if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password ){
+        return next(new ErrorHandler("Please fill full form", 400))
+    }
+    const admin = await User.findOne({email : _email})
+    if(admin){
+        return next(new ErrorHandler("Already Registered!!", 400))
+    }
+    const admin2 =  await User.create({
+        firstName: _firstName,
+        lastName: _lastName,
+        email: _email, 
+        phone: _phone,
+        adhaarCard: _adhaarCard,
+        dob: _dob,
+        gender: _gender,
+        password: _password,
+        role: 'Admin'
+        })
+    generateToken(admin2,"Admin Registered succesfully",200,res)
+}
+module.exports = {patientRegister , login, adminRegister}

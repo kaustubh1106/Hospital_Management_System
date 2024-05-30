@@ -3,9 +3,7 @@ const {ErrorHandler,errorMiddleware} = require ("../middlewares/errorMiddleware.
 
 const sendMessage = async(req,res,next)=>{
     const {_firstName, _lastName, _email, _phone, _message} = req.body
-    console.log(_firstName)
     if(!_firstName || !_lastName || !_email || !_phone || !_message){
-        console.log("hii")
         return next(new ErrorHandler("Please fill full form", 400))
     }
     
