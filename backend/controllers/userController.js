@@ -71,4 +71,43 @@ const adminRegister = async(req,res,next)=>{
         })
     generateToken(admin2,"Admin Registered succesfully",200,res)
 }
-module.exports = {patientRegister , login, adminRegister}
+
+const getAllDoctors = async(req,res,next)=>{
+    const doctors = await User.find({role: "Doctor"})
+    res.status(200).json({
+        success:true,
+        doctors
+    })
+}
+
+const getUserDetails = async(req,res,next)=>{
+    const user = req.user
+    res.status(200).json({
+        success:true,
+        user
+    })
+}
+
+const logOutAdmin = async(req,res,next)=>{
+    res.status(200).cookie("adminToken", "",{
+        httpOnly:true,
+        expires: new Date(Date.now())
+    }).json({
+        success:true,
+        message : "Admin Logout successfully"
+    })
+    
+}
+
+const logOutPatient = async(req,res,next)=>{
+    res.status(200).cookie("patientToken", "",{
+        httpOnly:true,
+        expires: new Date(Date.now())
+    }).json({
+        success:true,
+        message : "User Logout successfully"
+    })
+    
+}
+
+module.exports = {patientRegister , login, adminRegister,getAllDoctors,getUserDetails,logOutAdmin,logOutPatient}
