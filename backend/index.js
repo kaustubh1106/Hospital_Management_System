@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
+const cloudinary = require("cloudinary").v2
 const fileUpload = require("express-fileupload")
 const messageRouter = require("./router/messageRouter.js")
 const userRouter = require("./router/userRouter.js")
@@ -12,7 +13,11 @@ const app = express()
 
 dbConnection()
 
-
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUDNAME,
+    api_key: process.env.CLOUDINARY_APIKEY,
+    api_secret: process.env.CLOUDINARY_SECRETKEY
+})
 
 app.use(cors(
     {
@@ -29,6 +34,7 @@ app.use(fileUpload({
 }))
 app.use('/api/v1/message',messageRouter)
 app.use('/api/v1/user',userRouter)
+
 
 app.use(errorMiddleware)
 

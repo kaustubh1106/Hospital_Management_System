@@ -1,5 +1,5 @@
 const express = require("express")
-const {patientRegister ,login,adminRegister,getAllDoctors,getUserDetails,logOutAdmin,logOutPatient} = require("../controllers/userController.js")
+const {patientRegister ,login,adminRegister,getAllDoctors,getUserDetails,logOutAdmin,logOutPatient, addNewDoctor} = require("../controllers/userController.js")
 const {catchAsyncErrors} = require("../middlewares/catchAsyncErrors.js")
 const {isAdminAuthenticated,isPatientAuthenticated} = require("../middlewares/auth.js")
 
@@ -14,4 +14,5 @@ router.get("/admin/me",isAdminAuthenticated,catchAsyncErrors(getUserDetails))
 router.get("/patient/me",isPatientAuthenticated,catchAsyncErrors(getAllDoctors))
 router.get("/admin/logout",isAdminAuthenticated,catchAsyncErrors(logOutAdmin))
 router.get("/patient/logout",isPatientAuthenticated,catchAsyncErrors(logOutPatient))
+router.post("/doctor/addnew",isAdminAuthenticated,catchAsyncErrors(addNewDoctor))
 module.exports = router; 

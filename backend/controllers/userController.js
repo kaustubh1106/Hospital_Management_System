@@ -1,7 +1,7 @@
 const {ErrorHandler,errorMiddleware} = require ("../middlewares/errorMiddleware.js")
 const User = require("../models/userSchema.js")
 const {generateToken} = require("../utils/jwtToken.js")
-
+const cloudinary = require("cloudinary")
 const patientRegister = async(req,res,next)=>{
     const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password,_role} = req.body
     if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password || !_role){
@@ -107,7 +107,57 @@ const logOutPatient = async(req,res,next)=>{
         success:true,
         message : "User Logout successfully"
     })
-    
 }
 
-module.exports = {patientRegister , login, adminRegister,getAllDoctors,getUserDetails,logOutAdmin,logOutPatient}
+const addNewDoctor = async(req,res,next)=>{
+    if(!req.files || Object.keys(req.files).length === 0) {
+        return next(new ErrorHandler(" Avatar is required!", 400))
+    }
+    const{ _docAvatar} = req.files
+    const allowedFormats = ["image/png","image/jpg","image/jpeg","image/webp"]
+    if(!allowedFormats.includes(_docAvatar.mimetype)){
+        return next(new ErrorHandler(" Files type not supported!", 400))
+    }
+    const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password,_doctorDepartment} = req.body
+    if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password || !_doctorDepartment){
+        return next(new ErrorHandler("Please fill full form", 400))
+    }
+    const isRegistered = await User.findOne({email: _email})
+    if(isRegistered){
+        next(new ErrorHandler(" Already registered with this email!", 400))
+    }
+
+    const cloudinaryResponse = await cloudinary.uploader.upload(
+        _docAvatar.tempFilePath
+    )
+    console.log("ok")
+    if(!cloudinaryResponse || cloudinaryResponse.error){
+        console.log(
+            "Cloudinary Error: ",
+            cloudinaryResponse.error || "unknown cloudinary error"
+        )
+    }
+    const doctor = await User.create({
+        firstName: _firstName,
+        lastName: _lastName,
+        email: _email, 
+        phone: _phone,
+        adhaarCard: _adhaarCard,
+        dob: _dob,
+        gender: _gender,
+        password: _password,
+        doctorDepartment: _doctorDepartment,
+        role: "Doctor",
+        docAvatar:{
+            public_id: cloudinaryResponse.public_id,
+            url: cloudinaryResponse.secure_url
+        }
+    })
+    res.status(200).json({
+        success:true,
+        message:"New Doctor Registered!",
+        doctor
+    })
+}
+
+module.exports = {patientRegister , login, adminRegister,getAllDoctors,getUserDetails,logOutAdmin,logOutPatient,addNewDoctor}
