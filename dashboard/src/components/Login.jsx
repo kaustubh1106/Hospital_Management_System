@@ -19,7 +19,7 @@ const Login = () => {
     
       await axios
         .post(
-          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/login",
+          "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/login",
           { _email, _password, _confirmPassword, _role: "Admin" },
           {
             withCredentials: true,

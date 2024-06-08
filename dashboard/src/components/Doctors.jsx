@@ -11,7 +11,7 @@ const Doctors = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/doctors",
+          "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/doctors",
           { withCredentials: true }
         );
         setDoctors(data.doctors);

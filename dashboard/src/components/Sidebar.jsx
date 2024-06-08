@@ -18,7 +18,7 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     await axios
-      .get("https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/admin/logout", {
+      .get("https://hospital-management-system-tau-weld.vercel.app/api/v1/user/admin/logout", {
         withCredentials: true,
       })
       .then((res) => {

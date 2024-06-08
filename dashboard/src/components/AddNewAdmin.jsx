@@ -23,7 +23,7 @@ const AddNewAdmin = () => {
     try {
       await axios
         .post(
-          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/admin/addnew",
+          "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/admin/addnew",
           { _firstName, _lastName, _email, _phone, _adhaarCard, _dob, _gender, _password },
           {
             withCredentials: true,
