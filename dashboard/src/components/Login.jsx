@@ -19,7 +19,7 @@ const Login = () => {
     
       await axios
         .post(
-          "http://localhost:6036/api/v1/user/login",
+          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/login",
           { _email, _password, _confirmPassword, _role: "Admin" },
           {
             withCredentials: true,

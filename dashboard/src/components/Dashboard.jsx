@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:6036/api/v1/appointment/getall",
+          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/appointment/getall",
           { withCredentials: true }
         );
         setAppointments(data.appointments);
@@ -27,7 +27,7 @@ const Dashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:6036/api/v1/appointment/update/${appointmentId}`,
+        `https://medicare-kaustubh-dashboard.netlify.app/api/v1/appointment/update/${appointmentId}`,
         { status },
         { withCredentials: true }
       );

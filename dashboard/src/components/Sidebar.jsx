@@ -18,7 +18,7 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     await axios
-      .get("http://localhost:6036/api/v1/user/admin/logout", {
+      .get("https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/admin/logout", {
         withCredentials: true,
       })
       .then((res) => {

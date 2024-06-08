@@ -11,7 +11,7 @@ const Messages = () => {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:6036/api/v1/message/getall",
+          "https://medicare-kaustubh-dashboard.netlify.app/api/v1/message/getall",
           { withCredentials: true }
         );
         setMessages(data.message);

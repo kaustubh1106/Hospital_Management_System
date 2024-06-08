@@ -58,7 +58,7 @@ const AddNewDoctor = () => {
       formData.append("_doctorDepartment", _doctorDepartment);
       formData.append("_docAvatar", _docAvatar);
       await axios
-        .post("http://localhost:6036/api/v1/user/doctor/addnew", formData, {
+        .post("https://medicare-kaustubh-dashboard.netlify.app/api/v1/user/doctor/addnew", formData, {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
         })
