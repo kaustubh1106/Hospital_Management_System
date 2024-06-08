@@ -3,6 +3,7 @@ const Appointment = require("../models/appointmentSchema.js")
 const User = require("../models/userSchema.js")
 
 const postAppointment = async(req,res,next)=>{
+    
     const {
         _firstName,
         _lastName,
@@ -11,12 +12,14 @@ const postAppointment = async(req,res,next)=>{
         _adhaarCard,
         _dob,
         _gender,
-        _department,
+        _appointment_date,
+        department,
         _doctor_firstName,
         _doctor_lastName,
         _hasVisited,
         _address
     } = req.body;
+    console.log(_address)
     if(
         !_firstName ||
         !_lastName ||
@@ -25,10 +28,11 @@ const postAppointment = async(req,res,next)=>{
         !_adhaarCard ||
         !_dob ||
         !_gender ||
-        !_department ||
+        !_appointment_date ||
+        !department ||
         !_doctor_firstName ||
         !_doctor_lastName ||
-        !_hasVisited ||
+
         !_address
     ){
         return next(new ErrorHandler("Please fill full form!",400))
@@ -38,7 +42,7 @@ const postAppointment = async(req,res,next)=>{
             firstName: _doctor_firstName,
             lastName: _doctor_lastName,
             role:"Doctor",
-            doctorDepartment: _department,
+            doctorDepartment: department,
         }
     )
     if(isConflict.length===0){
@@ -49,7 +53,8 @@ const postAppointment = async(req,res,next)=>{
     }
     else{
         const _doctorID = isConflict[0]._id;
-        const _patientID = req.body._id;
+        const _patientID = req.user._id;
+        console.log(_doctor_firstName)
         const appointment = await Appointment.create({
             firstName:_firstName,
             lastName:_lastName,
@@ -58,20 +63,22 @@ const postAppointment = async(req,res,next)=>{
             adhaarCard:_adhaarCard,
             dob:_dob,
             gender:_gender,
-            department:_department,
+            appointment_date:_appointment_date,
+            department:department,
             doctor:{
-                doctor_firstName:_doctor_firstName,
-                doctor_lastName:_doctor_lastName,
+                firstName:_doctor_firstName,
+                lastName:_doctor_lastName,
             },
             hasVisited:_hasVisited,
             address:_address,
             doctorID: _doctorID,
             patientID: _patientID,
         })
-
-        req.status(200).json({
+        console.log(appointment)
+        res.status(200).json({
             success:true,
             message: "Appointment Sent Successfully!",
+            appointment
         })
     }
 }

@@ -23,6 +23,7 @@ const sendMessage = async(req,res,next)=>{
 
 const getAllMessages = async(req,res,next)=>{
     const message = await Message.find();
+    console.log(message)
     res.status(200).json({
         success:true,
         message,

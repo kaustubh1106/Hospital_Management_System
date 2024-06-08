@@ -4,18 +4,18 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const AppointmentForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [nic, setNic] = useState("");
-  const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
+  const [_firstName, setFirstName] = useState("");
+  const [_lastName, setLastName] = useState("");
+  const [_email, setEmail] = useState("");
+  const [_phone, setPhone] = useState("");
+  const [_adhaarCard, setAdhaarCard] = useState("");
+  const [_dob, setDob] = useState("");
+  const [_gender, setGender] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [department, setDepartment] = useState("Pediatrics");
   const [doctorFirstName, setDoctorFirstName] = useState("");
   const [doctorLastName, setDoctorLastName] = useState("");
-  const [address, setAddress] = useState("");
+  const [_address, setAddress] = useState("");
   const [hasVisited, setHasVisited] = useState(false);
 
   const departmentsArray = [
@@ -49,19 +49,19 @@ const AppointmentForm = () => {
       const { data } = await axios.post(
         "http://localhost:6036/api/v1/appointment/post",
         {
-          firstName,
-          lastName,
-          email,
-          phone,
-          nic,
-          dob,
-          gender,
-          appointment_date: appointmentDate,
+          _firstName,
+          _lastName,
+          _email,
+          _phone,
+          _adhaarCard,
+          _dob,
+          _gender,
+          _appointment_date: appointmentDate,
           department,
-          doctor_firstName: doctorFirstName,
-          doctor_lastName: doctorLastName,
-          hasVisited: hasVisitedBool,
-          address,
+          _doctor_firstName: doctorFirstName,
+          _doctor_lastName: doctorLastName,
+          _hasVisited: hasVisitedBool,
+          _address,
         },
         {
           withCredentials: true,
@@ -96,13 +96,13 @@ const AppointmentForm = () => {
             <input
               type="text"
               placeholder="First Name"
-              value={firstName}
+              value={_firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
             <input
               type="text"
               placeholder="Last Name"
-              value={lastName}
+              value={_lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
@@ -110,32 +110,32 @@ const AppointmentForm = () => {
             <input
               type="text"
               placeholder="Email"
-              value={email}
+              value={_email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="number"
               placeholder="Mobile Number"
-              value={phone}
+              value={_phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div>
             <input
               type="number"
-              placeholder="NIC"
-              value={nic}
-              onChange={(e) => setNic(e.target.value)}
+              placeholder="Adhaar number"
+              value={_adhaarCard}
+              onChange={(e) => setAdhaarCard(e.target.value)}
             />
             <input
               type="date"
               placeholder="Date of Birth"
-              value={dob}
+              value={_dob}
               onChange={(e) => setDob(e.target.value)}
             />
           </div>
           <div>
-            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <select value={_gender} onChange={(e) => setGender(e.target.value)}>
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -188,7 +188,7 @@ const AppointmentForm = () => {
           </div>
           <textarea
             rows="10"
-            value={address}
+            value={_address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder="Address"
           />

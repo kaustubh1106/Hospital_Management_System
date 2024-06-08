@@ -22,7 +22,7 @@ cloudinary.config({
 
 app.use(cors(
     {
-        origin: [`${process.env.FRONTEND_URL}`,process.env.DASHBOARD_URL],
+        origin: [`${process.env.FRONTEND_URL}`,`${process.env.DASHBOARD_URL}`],
         credentials: true
     }
 ))
@@ -35,7 +35,7 @@ app.use(fileUpload({
 }))
 app.use('/api/v1/message',messageRouter)
 app.use('/api/v1/user',userRouter)
-app.use('/api/v1/appointment',userRouter)
+app.use('/api/v1/appointment',appointmentRouter)
 
 
 app.use(errorMiddleware)

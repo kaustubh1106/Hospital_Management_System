@@ -39,6 +39,10 @@ const appointmentSchema = new Schema({
         required:[true,"Gender is required"],
         enum : ['Male','Female','Others']
     },
+    appointment_date : {
+        type: Date,
+        required:[true,"appointment date is required"]
+    },
     department:{
         type:String,
         required :true,

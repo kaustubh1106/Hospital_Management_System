@@ -29,6 +29,7 @@ const patientRegister = async(req,res,next)=>{
 
 const login = async(req,res,next)=>{
     const {_email,_password,_confirmPassword,_role} = req.body
+    console.log(_email)
     if(!_email || !_password ||!_confirmPassword || !_role){
         return next(new ErrorHandler("Please fill full form", 400))
     }
@@ -52,6 +53,7 @@ const login = async(req,res,next)=>{
 }
 const adminRegister = async(req,res,next)=>{
     const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password} = req.body
+    console.log(_dob)
     if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password ){
         return next(new ErrorHandler("Please fill full form", 400))
     }
@@ -82,6 +84,7 @@ const getAllDoctors = async(req,res,next)=>{
 }
 
 const getUserDetails = async(req,res,next)=>{
+    console.log("ok")
     const user = req.user
     res.status(200).json({
         success:true,
@@ -119,8 +122,9 @@ const addNewDoctor = async(req,res,next)=>{
     if(!allowedFormats.includes(_docAvatar.mimetype)){
         return next(new ErrorHandler(" Files type not supported!", 400))
     }
-    const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password,_doctorDepartment} = req.body
-    if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password || !_doctorDepartment){
+    const {_firstName, _lastName, _email, _phone,_adhaar,_dob,_gender,_password,_doctorDepartment} = req.body
+    console.log(_email)
+    if(!_firstName || !_lastName || !_email || !_phone || !_adhaar || !_dob || !_gender|| !_password || !_doctorDepartment){
         return next(new ErrorHandler("Please fill full form", 400))
     }
     const isRegistered = await User.findOne({email: _email})
@@ -143,7 +147,7 @@ const addNewDoctor = async(req,res,next)=>{
         lastName: _lastName,
         email: _email, 
         phone: _phone,
-        adhaarCard: _adhaarCard,
+        adhaarCard: _adhaar,
         dob: _dob,
         gender: _gender,
         password: _password,
