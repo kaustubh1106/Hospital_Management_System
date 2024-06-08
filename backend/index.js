@@ -20,7 +20,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRETKEY
 })
 
-app.use(cors())
+app.use(cors(
+    {
+        origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
+        credentials: true
+    }
+))
 app.use(cookieParser())
 app.use(express.json())   //used for json to string conversion
 app.use(express.urlencoded({ extended: true} ))
