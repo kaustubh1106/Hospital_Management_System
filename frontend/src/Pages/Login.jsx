@@ -18,7 +18,7 @@ const Login = () => {
     try {
       await axios
         .post(
-          "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/login",
+          "http://localhost:6036/api/v1/user/login",
           { _email, _password, _confirmPassword, _role: "Patient" },
           {
             withCredentials: true,
