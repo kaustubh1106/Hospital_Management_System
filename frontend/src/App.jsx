@@ -12,12 +12,15 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Context } from "./main";
 import Login from "./Pages/Login";
+
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } =
     useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
+
+     console.log(process.env.REACT_APP_SITE_URL)
       try {
         const response = await axios.get(
           "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/patient/me",
