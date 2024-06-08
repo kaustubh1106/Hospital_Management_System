@@ -17,7 +17,6 @@ const App = () => {
   const { isAuthenticated, setIsAuthenticated, admin, setAdmin } =
     useContext(Context);
 
-  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
@@ -29,16 +28,18 @@ const App = () => {
         setIsAuthenticated(true);
         setAdmin(response.data.user);
       } catch (error) {
-        setIsAuthenticated(false);
-        setAdmin({});
+        // setIsAuthenticated(false);
+        // setAdmin({});
       }
     };
+  useEffect(() => {
     fetchUser();
   }, [isAuthenticated]);
 
   return (
     <Router>
       <Sidebar />
+      <button onClick={()=>{fetchUser()}}>refresh</button>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
