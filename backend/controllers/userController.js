@@ -84,12 +84,16 @@ const getAllDoctors = async(req,res,next)=>{
 }
 
 const getUserDetails = async(req,res,next)=>{
-    console.log("ok")
     const user = req.user
-    res.status(200).json({
-        success:true,
-        user
-    })
+    if(user){
+        res.status(200).json({
+            success:true,
+            user
+        })
+    }
+    else{
+        next(new ErrorHandler("please login!", 400))
+    }
 }
 
 const logOutAdmin = async(req,res,next)=>{
