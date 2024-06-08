@@ -3,7 +3,7 @@ const {ErrorHandler,errorMiddleware} = require ("../middlewares/errorMiddleware.
 const User = require("../models/userSchema.js")
 const jwt = require("jsonwebtoken")
 const isAdminAuthenticated = catchAsyncErrors(async (req,res,next)=>{
-    console.log(req.cookies)
+    console.log(req.cookie)
     const token = req.cookies.adminToken
     console.log("token: ",token)
     if(!token){
