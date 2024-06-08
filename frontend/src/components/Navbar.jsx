@@ -15,6 +15,7 @@ const Navbar = () => {
         withCredentials: true,
       })
       .then((res) => {
+
         toast.success(res.data.message);
         setIsAuthenticated(false);
       })
