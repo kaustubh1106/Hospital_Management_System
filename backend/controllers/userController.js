@@ -3,8 +3,9 @@ const User = require("../models/userSchema.js")
 const {generateToken} = require("../utils/jwtToken.js")
 const cloudinary = require("cloudinary")
 const patientRegister = async(req,res,next)=>{
-    const {_firstName, _lastName, _email, _phone,_adhaarCard,_dob,_gender,_password,_role} = req.body
-    if(!_firstName || !_lastName || !_email || !_phone || !_adhaarCard || !_dob || !_gender|| !_password || !_role){
+    const {_firstName, _lastName, _email, _phone,_adhaar,_dob,_gender,_password} = req.body
+    console.log(_adhaar)
+    if(!_firstName || !_lastName || !_email || !_phone || !_adhaar || !_dob || !_gender|| !_password ){
         return next(new ErrorHandler("Please fill full form", 400))
     }
     
@@ -17,21 +18,21 @@ const patientRegister = async(req,res,next)=>{
         lastName: _lastName,
         email: _email, 
         phone: _phone,
-        adhaarCard: _adhaarCard,
+        adhaarCard: _adhaar,
         dob: _dob,
         gender: _gender,
         password: _password,
-        role: _role,
+        role: "Patient",
         })
         generateToken(user,"Patient Registered succesfully",200,res)
 }
 
 const login = async(req,res,next)=>{
-    const {_email,_password,_confirmpassword,_role} = req.body
-    if(!_email || !_password ||!_confirmpassword || !_role){
+    const {_email,_password,_confirmPassword,_role} = req.body
+    if(!_email || !_password ||!_confirmPassword || !_role){
         return next(new ErrorHandler("Please fill full form", 400))
     }
-    if(_password!== _confirmpassword){
+    if(_password!== _confirmPassword){
         return next(new ErrorHandler("password and confirm password doesnt match", 400))
     }
     let user = await User.findOne({email : _email}).select("+password")   //+ is required and select is used to get the value of select attribute in Schema
