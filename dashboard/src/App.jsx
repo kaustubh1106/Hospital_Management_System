@@ -28,8 +28,8 @@ const App = () => {
         setIsAuthenticated(true);
         setAdmin(response.data.user);
       } catch (error) {
-        // setIsAuthenticated(false);
-        // setAdmin({});
+        setIsAuthenticated(false);
+        setAdmin({});
       }
     };
   useEffect(() => {
