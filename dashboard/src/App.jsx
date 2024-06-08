@@ -20,7 +20,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://hospital-management-system-tau-weld.vercel.app/api/v1/user/admin/me",
+          "https://hospital-management-system-2-gxtn.onrender.com/api/v1/user/admin/me",
           {
             withCredentials: true,
           }
