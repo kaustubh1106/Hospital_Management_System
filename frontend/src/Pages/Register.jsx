@@ -21,7 +21,6 @@ const Register = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      console.log("ok")
       await axios
         .post(
           "http://localhost:6036/api/v1/user/patient/register",
