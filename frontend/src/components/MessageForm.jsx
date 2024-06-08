@@ -14,7 +14,7 @@ const MessageForm = () => {
     try {
       await axios
         .post(
-          "http://localhost:6036/api/v1/message/send",
+          "https://hospital-management-system-tau-weld.vercel.app/api/v1/message/send",
           { _firstName, _lastName, _email, _phone, _message },
           {
             withCredentials: true,

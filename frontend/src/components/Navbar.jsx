@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await axios
-      .get("http://localhost:6036/api/v1/user/patient/logout", {
+      .get("https://hospital-management-system-tau-weld.vercel.app/api/v1/user/patient/logout", {
         withCredentials: true,
       })
       .then((res) => {
