@@ -5,6 +5,7 @@ const cloudinary = require("cloudinary").v2
 const fileUpload = require("express-fileupload")
 const messageRouter = require("./router/messageRouter.js")
 const userRouter = require("./router/userRouter.js")
+const appointmentRouter = require("./router/appointmentRouter.js")
 const {dbConnection} = require("./utils/dbConnections.js")
 const {errorHandler,errorMiddleware} = require("./middlewares/errorMiddleware.js")
 
@@ -34,6 +35,7 @@ app.use(fileUpload({
 }))
 app.use('/api/v1/message',messageRouter)
 app.use('/api/v1/user',userRouter)
+app.use('/api/v1/appointment',userRouter)
 
 
 app.use(errorMiddleware)

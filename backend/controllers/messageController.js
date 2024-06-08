@@ -20,4 +20,13 @@ const sendMessage = async(req,res,next)=>{
         })
     
 }
-module.exports = {sendMessage}
+
+const getAllMessages = async(req,res,next)=>{
+    const message = await Message.find();
+    res.status(200).json({
+        success:true,
+        message,
+    })
+}
+
+module.exports = {sendMessage,getAllMessages}
