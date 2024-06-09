@@ -99,6 +99,7 @@ const getUserDetails = async(req,res,next)=>{
 }
 
 const logOutAdmin = async(req,res,next)=>{
+    console.log("this is on logout admin : ", req)
     res.status(200).cookie("adminToken", "",{
         httpOnly:true,
         sameSite: 'None',
