@@ -103,6 +103,7 @@ const logOutAdmin = async(req,res,next)=>{
         httpOnly:true,
         sameSite: 'None',
         secure:true,
+        path:"/",
         expires: new Date(0)
     }).json({
         success:true,
