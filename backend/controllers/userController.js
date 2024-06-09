@@ -100,9 +100,10 @@ const getUserDetails = async(req,res,next)=>{
 
 const logOutAdmin = async(req,res,next)=>{
     res.status(200).cookie("adminToken", "",{
+        httpOnly:true,
         sameSite: 'None',
         secure:true,
-        expires: new Date(Date.now())
+        expires: new Date(0)
     }).json({
         success:true,
         message : "Admin Logout successfully"
@@ -114,7 +115,7 @@ const logOutPatient = async(req,res,next)=>{
     res.status(200).cookie("patientToken", "",{
         sameSite: 'None',
         secure:true,
-        expires: new Date(Date.now())
+        expires: new Date(0)
     }).json({
         success:true,
         message : "User Logout successfully"
